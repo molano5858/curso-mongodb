@@ -1,0 +1,4 @@
+use('sample_training')
+
+db.zips.find({state:'NY'})// busqueda definiendo un parametro
+db.zips.find({state:'NY'}).count()//cuantos documentos cumplen
