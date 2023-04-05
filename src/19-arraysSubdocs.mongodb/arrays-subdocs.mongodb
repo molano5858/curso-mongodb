@@ -1,0 +1,38 @@
+// ARRAYS SUBDOCS
+// hacer consultas a sub documentos
+
+use("sample_training");
+
+db.trips.findOne(); // asi solito me va a traer solamente el primer elemnto de la coleccion
+
+db.trips.find({ "start station location.type": "Point" }); // peticion a un sub documento
+
+// podemos acceder a algun elemento que sea array con su numero de posicion del index del array
+// tener en cuenta que realtionships es un array
+db.companies.find(
+  { "relationships.0.person.last_name": "Zuckerberg" },
+  { name: 1, relationships: 1 }
+);
+
+// buscando el primer nombre
+db.companies
+  .find(
+    { "relationships.0.person.first_name": "Mark" },
+    { name: 1, relationships: 1 }
+  )
+  .count(); // 108 personas se llaman mark
+
+// relationships es un array y antes estabamos buscando solo en la posicion 0 quienes se llamaban mark
+// ahora vamos a buscar en tooooooooodo el array (no solo en la posicion 0) quienes se llaman mark
+db.companies
+  .find(
+    {
+      relationships: {
+        $elemMatch: {
+          "person.first_name": "Mark",
+        },
+      },
+    },
+    { name: 1, relationships: 1 }
+  )
+  .count(); //523

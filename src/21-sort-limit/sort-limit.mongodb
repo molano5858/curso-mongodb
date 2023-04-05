@@ -1,0 +1,21 @@
+// SORT,SKIP AND LIMIT
+// organizar y limitar los datos que me devuelve en alguna consulta
+
+use("sample_training");
+
+// consulta densidad poblacional mayor o igual a 100
+db.zips.find({ pop: { $gte: 100 } });
+
+// SORT
+// pero el orden en el que me devuelve los datos esta dado aparentemente por el id, si yo quiero organizarlo de
+// una manera distinta
+// si le pongo 1 significa ordenar de manera ascendente
+// si le pongo -1 significa ordenar de manera descendente
+// limit nos devuelve la cantidad de registros que le digamos
+
+db.zips
+  .find({ pop: { $gte: 100 } })
+  .sort({ pop: 1 })
+  .limit(2);
+
+//

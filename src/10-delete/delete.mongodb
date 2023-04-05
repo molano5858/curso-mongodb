@@ -1,0 +1,11 @@
+use("platzi_store");
+// eliminar un elemento
+// vamos a eliminar el elemento que tenga el id 1
+db.products.deleteOne({ _id: 1 });
+
+// elimnar varios
+// vamos a eliminar todos los elementos que su precio sea 100
+db.products.deleteMany({ price: 100 });
+
+// eliminar todos los registros
+db.products.drop();

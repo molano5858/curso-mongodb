@@ -1,0 +1,20 @@
+// PROJECTION
+// Es la forma en que podemos filtrar los campos que queremos de las respuestas solicitadas, es decir
+// yo puedo hacer una consulta digamos que necesito todos los estudiantes que tengan calificaciones mayores a 9
+// y que sean mujeres, asi me va a devolver todos las mujeres con calificaciones mayores a 9 pero cada mujer me va
+// a retornar con toda su informacion que este en la base de datos, nombre, edad , direccion calificacion etc etc etc
+// con PROJECTION yo puedo decirle que el resultado sea solo los nombres de las mujeres y que no me traiga todos
+// sus datos
+
+// EN CADA CAMPO QUE YO QUIERA LE PONGO {nombreDelCampo:1} y si no lo quiero {nombreDelCampo:0}
+// 1 representa que si / 0 representa que no
+
+// PROJECTION, seria el segundo objeto pasado como parametro
+use("sample_training");
+
+db.trips.find(
+  //query
+  { tripduration: { $gte: 500 } },
+  // projection
+  { tripduration: 1, usertype: 1 }
+);

@@ -1,0 +1,5 @@
+use("platzi_store");
+
+// todos los elementos que su cantidad sea DIFERENTE a 20 aumentarles su cantidad en 2
+
+db.inventory.updateMany({ qty: { $ne: 20 } }, { $inc: { qty: 2 } });

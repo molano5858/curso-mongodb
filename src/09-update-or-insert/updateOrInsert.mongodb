@@ -1,0 +1,30 @@
+use("platzi_store");
+
+// aqui añadimos la lectura para el dia 3, osea que como es la primera va a crear el registro
+db.iot.insertOne({
+  sensor: "A001",
+  date: "2022-01-03",
+  reading: [1212],
+});
+
+// aqui vamos a mandar la segunda lectura del dia 3, osea que no tendria que generar un nuevo registro
+// si no que deberia agregarlo al ya existente
+db.iot.updateOne(
+  { sensor: "A001", date: "2022-01-03" },
+  { $push: { reading: 2222 } }
+);
+
+// eliminando un elemento con $pop , si le digo 1: elimina el ultimo elemento del array, si le digo
+// -1 elimina el primer elemento del array
+
+// db.iot.updateOne(
+//   { date: "2022-01-03" },
+//   {
+//     $pop: {
+//       readings: 1,
+//     },
+//   }
+// );
+
+// PERO COMO SE HACE ESA LOGICA DE QUE SI NO HAY REGISTRO USE UN INSERTONE Y SI HAY REGISTRO ENTONCES USE UPDATEONE?
+// esto se hace con upsert: true lo vamos a hacer en otro archivo aparte que se llama upsert.mongodb

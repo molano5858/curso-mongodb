@@ -1,0 +1,24 @@
+// EXPRESIVE OPERATOR
+
+use("platzi_store");
+
+// aqui tenemos una consulta normal
+db.monthlyBudget.find({ spent: { $gte: 100 } });
+
+// con expresive operator podemos hacer la anterior consulta de la siguiente manera
+db.monthlyBudget.find({
+  $expr: {
+    $gte: ["$spent", 100],
+  },
+}); // porque hacerlo tan complicado entonces ?
+
+// vamos  a ver el potencial de comparacion
+// en la siguiente expresion estamos diciendome, traeme los documentos donde el campo spent sea mayor o igual al campo
+// buget, osea que estamos comparando campos como tal.
+db.monthlyBudget.find({
+  $expr: {
+    $gte: ["$spent", "$budget"],
+  },
+});
+
+//

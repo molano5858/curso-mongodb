@@ -1,0 +1,47 @@
+use("platzi_store");
+
+// OJO .drop borra TODOS LOS DOCUMENTOS DE UNA COLECION
+
+db.products.drop(); // aqui estamos limpiando la coleccion products
+
+// NOTA, si creas documentos con id y hay varios elementos que tienen
+// el mismo id, cuando usas insertMany te va a arrojar un error pero
+// el va a insertar los elementos que no tengan problema
+// y no va a insertar el elemento que si tenga el id duplicado y todos los
+// demas que haya hacia abajo, es decir, si tengo 4 productos
+// id 1 id 2 id 1 id 4 el tercer elemento tiene choque osea que no
+// va a crearlo, solo va a crear los dos primeros elementos, es decir
+// que l ainsercion se va a hacer hasta que el programa encuentra el error
+// de ahi hacia abajo se detiene
+
+// para solucionar esto usamos le comando ordered:false esto le dice como que
+// se salte los items que tenga errores y siga agregando los que no tengan
+db.products.insertMany(
+  [
+    {
+      _id: 1,
+      name: "Product 1",
+      price: 1000,
+    },
+    {
+      _id: 2,
+      name: "Product 2",
+      price: 2000,
+    },
+    {
+      _id: 1,
+      name: "Product 3",
+      price: 3000,
+    },
+    {
+      _id: 4,
+      name: "Product 4",
+      price: 4000,
+    },
+  ],
+  {
+    ordered: false,
+  }
+);
+
+db.products.find();

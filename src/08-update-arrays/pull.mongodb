@@ -1,0 +1,20 @@
+// UPDATE ARRAYS
+use("platzi_store");
+
+// vamos a quitar todas las tags que sean book de todos los elementos en donde este
+db.inventory.updateMany(
+  {}, // aqui no le ponemos nada como query o condicion para que traiga todos los registros
+  {
+    $pull: {
+      tags: "book",
+    },
+  }
+);
+
+// vamos a eliminar las tags de school y appliance ent odos los registros en los que este
+// $in y un array
+// $in matches any of the values specified in array
+db.inventory.updateMany(
+  {},
+  { $pull: { tags: { $in: ["school", "appliance"] } } }
+);

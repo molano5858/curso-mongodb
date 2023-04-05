@@ -1,0 +1,51 @@
+// AGREGATION FRAMEWORK
+// se utiliza muhco para el analisis de datos mas profundos, casi al nivel de data science organizarndo
+// generando insight de los datos mas profundos, es decir que este tema es mucho mas grande que todo lo que hemos
+// visto que lo que vimos se denomina mongo query lenguaje
+
+use("sample_airbnb");
+
+// una busqueda de ejemplo
+db.listingsAndReviews.find(
+  {
+    amenities: "Wifi",
+  },
+  {
+    price: 1,
+    amenities: 1,
+  }
+);
+
+// vamos a hacer la busqueda ahora con agregation framework
+// agregation funciona como tuberias o pipelines
+// [],[],[]
+// cada uno de los elementos va a condicionar el siguiente, es como un embudo, haces un embudo y los datos
+// o consultas que haces en el primer elemento del array alimentan al segundo elemento del array y asi
+db.listingsAndReviews.aggregate([
+  { $match: { amenities: "Wifi" } }, // seria el find
+  {
+    $project: {
+      price: 1,
+      amenities: 1,
+    },
+  }, // seria el projection
+]);
+
+// otro ejemplo con aggregation
+
+db.listingsAndReviews.aggregate([
+  { $match: { amenities: "Wifi" } }, // seria el find
+  {
+    $project: {
+      address: 1, // aqui pongo address porque en el siguiente voy a hacer consulta sobre ese, y si no esta en una
+      // capa anterior no va a poder funcionar en la siguiente
+    },
+  }, // seria el projection
+  {
+    $group: {
+      // agrupar
+      _id: "$address.country", // como en esta capa hago consulta de addres, es porque tiene que estar en una anterior
+      count: { $sum: 1 }, // aqui estoy sumando los registros de habitacaion es que tienen wifi, es como hacer un acumulado
+    },
+  },
+]);

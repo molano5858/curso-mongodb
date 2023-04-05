@@ -1,0 +1,44 @@
+// ARRAY OPERATORS
+// ojo que en el data set creamos dos colecciones, inventory y survey
+use("platzi_store");
+
+//$in
+// este operador in sirve para datos, objetos y arrays (por eso lo usamos en clases anteriores en otro tema)
+// OJO en el int siempre se debe pasar un array
+
+db.inventory.find({ qty: { $in: [15] } }); // usando $in en un campo que es solo numeros osea qty
+db.inventory.find({ tags: { $in: ["book", "electronics"] } }); // usando $in en un campo que es un array, hay que tener
+// en cuenta que aqui le estamos diciendo traeme los campos que tengao book O electronics, osea que NO estamos diciendole
+// que deben estar ambos en el campo
+
+//$nin
+// el contrario de $in osea que NO haya tal informacion en el campo
+// la siguiente trae aquellos campos donde NO ESTE la cantidad 15
+db.inventory.find({ qty: { $nin: [15] } });
+
+// OPERADORES QUE SOLO FUNCIONAN EN ARRAYS
+// en el siguiente contexto tenemos la siquiente situacion
+
+db.inventory.find({ tags: ["school", "book"] }); // este asi como esta me va a traer los resultados donde
+// school y book esten en ese mismo orden solamente
+db.inventory.find({ tags: ["book", "school"] }); // si yo los cambio de orden no me traeria los mismos resultados
+// que en el ejemplo anterior porque es estricto en el orden
+
+// operador $all
+// con este operador solucionamos el anterior problema, no importa el orden, me va a traer los que tengal el campo
+// 1 y el campo 2 que le digamos
+db.inventory.find({ tags: { $all: ["book", "school"] } });
+
+// operador $size
+// me devuelve aquellos registros que el array tenga solamente el tamaño especificado
+db.inventory.find({ tags: { $size: 2 } }); // que el array solo tenga 2 elementos
+
+//operador $elemMatch
+// nos sirve cuando tenemos un ARRAY con OBJETOS DENTRO
+// el siguiente vamos a buscar los elementos donde sus products sean 'xyz', pero la estructura de estos datos
+// estan dentro de un array que se llama results
+db.survey.find({ results: { $elemMatch: { product: "xyz" } } });
+// podriamos hacer una busqueda mas filtrada
+db.survey.find({
+  results: { $elemMatch: { product: "xyz", score: { $gte: 7 } } },
+});

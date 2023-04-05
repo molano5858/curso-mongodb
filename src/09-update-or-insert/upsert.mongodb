@@ -1,0 +1,16 @@
+// UPSERT
+// lo que hace esta opcion es que si no hay un registro, entonces lo crea, pero si ya hay un registro,
+// va agregar ese dato dentro del registro ya existente.
+// anteriormente hicimos el ejemplo de crear el dia 3 y agregarle un registro en el archivo
+// updateOrInsert.mongodb
+// aqui vamos a hacer el ejemplo para el dia 4
+
+use("platzi_store");
+
+db.iot.updateOne(
+  { sensor: "A001", date: "2022-01-04" },
+  { $push: { readings: 4444 } },
+  { upsert: true }
+); // aqui ya creamos el nuevo registro del nuevo dia
+// si lo ejecutamos otra vez, en vez de crear un nuevo registro
+// va a quedar otro registro 4444 en el dia 4 osea un array con dos veces 4444

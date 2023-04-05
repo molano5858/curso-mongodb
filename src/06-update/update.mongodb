@@ -1,0 +1,43 @@
+use("platzi_store");
+
+// actualizando un documento o item
+// hay que usar los operadores entre ellos estan
+// $set : set the value of a fild in the document
+// $inc: increments the value of a field by specified amound
+// ObjectId: function to find a doc with objID
+
+// ejemplo con $set
+db.products.updateOne(
+  { _id: 4 },
+  {
+    $set: {
+      name: "Changed Name 4",
+      price: 4444,
+      // nota que se pueden crear campos que antes
+      // no existian
+      tags: ["tag 1", "tag 2", "tag 3"],
+    },
+  }
+);
+
+// ejemplo con $inc : incrementa un valor numerico en un valor dado
+db.products.updateOne(
+  { _id: 1 },
+  {
+    $inc: {
+      price: 222,
+    },
+  }
+);
+
+// ejemplo con ObjectId, este se usa para los items cuyo id fue generado por mongo, osea que nosotro no le pusimos
+// el id manualmente
+
+db.products.updateOne(
+  { _id: ObjectId("6428d7af979f05aca7815de2") },
+  {
+    $inc: {
+      price: 555,
+    },
+  }
+);

@@ -1,0 +1,21 @@
+// MORE OPERATOS
+
+// $gt (greater than - >)
+// $gte (greater than or equal - >=)
+// $lt (less than - <)
+// $lte (less than or equal - <=)
+
+use("platzi_store");
+
+// MAYOR A
+db.inventory.find({ qty: { $gt: 20 } });
+
+// MENOR A
+db.inventory.find({ qty: { $lt: 20 } });
+
+// VARIAS CONDICIONES UNIDAS
+db.inventory.find({ qty: { $gte: 25, $lte: 35 } });
+
+// VARIAS CONDUCIONES AUN MAS COMPLEJAS
+// aqui que el codigo del item sea 123 y que la cantidad este entre 20 y 35
+db.inventory.find({ "item.code": "123", qty: { $gte: 20, $lte: 35 } });

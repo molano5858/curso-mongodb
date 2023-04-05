@@ -1,0 +1,20 @@
+// REGEX
+// Expresiones regulares para encontrar cadenas de texto
+
+use("platzi_store");
+
+//vamos a buscar cuantas desciptiones tienen la palabra line
+db.inventory.find({ "item.description": { $regex: /line/ } });
+// en las expresiones regulares importa si es mayuscula o minuscula, por lo cual podemos usar i al final
+db.inventory.find({ "item.description": { $regex: /LINE/i } }); // aqui buscaria line tanto en mayus como en min
+
+// vamos a buscar cuales descripciones terminan en line, es decir que su ultima palabra sea line
+db.inventory.find({ "item.description": { $regex: /line$/i } });
+
+// vamos a buscar cules descripciones comienzan con la palabra Single
+db.inventory.find({ "item.description": { $regex: /^single/i } });
+
+// vamos a buscar en los documentos cuales empiezan con la letra s pero teniendo en cuenta todos los textos
+// incluidos los saltos de linea, es decir si yo tengo un texto 'hola como estas/n soy felipe', este texto no me lo
+// encontraria porque la s esta despues de un saldo de linea, entonces para esto agregamos la letra m de MULTILINEA
+db.inventory.find({ "item.description": { $regex: /^s/im } });

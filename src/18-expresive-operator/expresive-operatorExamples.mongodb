@@ -1,0 +1,25 @@
+use("sample_training");
+
+// vamos a ver cuales viajes comenzaron y terminaron en el mismo punto
+db.trips
+  .find({
+    $expr: {
+      $eq: ["$start station id", "$end station id"],
+    },
+  })
+  .count();
+
+// vamos a ver cuales viajes comenzaron y terminaron en el mismo punto y tambien que su duracion fue mayor a X tiempo
+// tener en cuenta que en el expresive operator si usamos otras cosas como un and dentro de el se deben de
+// escribir las cosas ya de forma explicita, es decir no podriamos escribir tripduration: {$gte:1200}
+// en este caso se debe de escribir { $gte: ["$tripduration", 1200] }
+db.trips
+  .find({
+    $expr: {
+      $and: [
+        { $eq: ["$start station id", "$end station id"] },
+        { $gte: ["$tripduration", 1200] },
+      ],
+    },
+  })
+  .count();

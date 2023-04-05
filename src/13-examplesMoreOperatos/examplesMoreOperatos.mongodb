@@ -1,0 +1,23 @@
+use("platzi_store");
+
+// vamos a eliminar todos los registros de readings que sean mayores a 3 en los registros del sensor A001
+db.iot.updateMany(
+  //query todos los sensores que sean A001
+  { sensor: "A001" },
+  // update, vamos a eliminar todos los datos de readings que sean mayores o iguales
+  // a un valor determinado
+  {
+    $pull: {
+      readings: { $gte: 3 },
+    },
+  }
+);
+
+// RETO del profesor
+// en el mongo atlas hacer una consulta en la base de datos sample_training en trips
+// mostrar los registros que sean o viajes que duren menos de 200 segundos
+// el key se llama tripduration
+// se hace asi {tripduration:{$lte:200}} y lo hice bien
+
+// anidando consultas, en la siguiente seria viajes que duren menos de 200 segundo y que user este suscrito
+//{tripduration:{$lte:200},usertype:'Subscriber'}

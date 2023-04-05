@@ -1,0 +1,15 @@
+// UPDATE or INSERT
+// explicacion del siguiente data set: es la informacion de un sensor, la informacion del sensor se guarda por dias
+// es decir que solo deberia haber un registro por dia, si el registro del dia ya existe entonces se deberia
+// guardar cada lectura dentro del array regardings, pero si las lecturas son nuevas se deberian guardar en un nuevo
+// registro
+use("platzi_store");
+
+db.iot.drop();
+
+db.iot.insertMany([
+  { _id: 1, sensor: "A001", date: "2022-01-01", readings: [1, 2, 3, 4] },
+  { _id: 2, sensor: "A001", date: "2022-01-02", readings: [1, 2, 3, 4] },
+  { _id: 3, sensor: "A002", date: "2022-01-01", readings: [1, 2, 3, 4] },
+  { _id: 4, sensor: "A002", date: "2022-01-02", readings: [1, 2, 3, 4] },
+]);

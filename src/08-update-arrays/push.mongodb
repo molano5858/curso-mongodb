@@ -1,0 +1,13 @@
+// UPDATE ARRAYS
+use("platzi_store");
+
+// vamos a agregar una nueva tag al documento con el id 4
+
+db.inventory.updateOne(
+  { _id: 4 },
+  {
+    $push: {
+      tags: "My new tag",
+    },
+  }
+);

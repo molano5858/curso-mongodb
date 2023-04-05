@@ -1,0 +1,18 @@
+//  COMPARISON QUERY OPERATORS
+// $eq (equal)
+// $ne (not equal)
+
+use("platzi_store");
+
+// EQUAL
+// en muchas expresiones viene por defecto osea que .find({qty:20}) y .find({qty:{$eq:20}}) son lo mismo
+db.inventory.find({ qty: 20 });
+db.inventory.find({ qty: { $eq: 20 } });
+
+// buscando un documento dentro de otro documento (osea un item tien dentro de si otros datos)
+// es como un objeto dentro de otro objeto, puedes verlo en el data-set
+// se accede como si fuera un objeto, y la key o osea la cadena debe estar entre comillas
+db.inventory.find({ "item.name": "xy" });
+
+// vamos a buscar todos los elementos que su cantidad sea diferente a 20
+db.inventory.find({ qty: { $ne: 20 } });

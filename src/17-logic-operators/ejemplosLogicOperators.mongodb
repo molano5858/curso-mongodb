@@ -1,0 +1,24 @@
+use("sample_training");
+
+//EJEMPLOS DE BUSQUEDAS CON LOGIC OPERATORS
+
+// vuelos que hizo el avion E70
+db.routes.find({ airplane: "E70" });
+
+//cuantos vuelos han despegado o aterrizado en bogota
+db.routes
+  .find({ $or: [{ dst_airport: "BOG" }, { src_airport: "BOG" }] })
+  .count();
+
+// union de las dos primeras consultas, si el avion E70 ha aterrizado o despegado en bogota
+
+db.routes
+  .find({
+    $and: [
+      { airplane: "E70" },
+      {
+        $or: [{ dst_airport: "BOG" }, { src_airport: "BOG" }],
+      },
+    ],
+  })
+  .count();

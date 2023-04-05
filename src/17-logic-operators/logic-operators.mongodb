@@ -1,0 +1,42 @@
+// LOGIC OPERATORS
+// recuerda que son not, and, or o none
+use("sample_training");
+
+// AND
+//esto es un and de forma implicita
+db.inspections
+  .find({
+    sector: "Tax Preparers - 891",
+    result: "Unable to Locate",
+  })
+  .count();
+
+// AND de forma explicita
+// todo loq eu vaya dentro del and debe de ir en un array y lo de adentro objetos [{},{},{}]
+db.inspections
+  .find({
+    $and: [{ sector: "Tax Preparers - 891" }, { result: "Unable to Locate" }],
+  })
+  .count();
+
+// OR
+// recuerda que deben ir en un array y sus items son obejetos [{},{},{}]
+db.inspections
+  .find({
+    $or: [{ sector: "Tax Preparers - 891" }, { result: "Unable to Locate" }],
+  })
+  .count();
+
+// NOR
+
+db.inspections
+  .find({
+    $nor: [{ sector: "Tax Preparers - 891" }, { result: "Unable to Locate" }],
+  })
+  .count();
+
+//NOT
+// Este no recibe un array, simplemente es la negacion
+db.inspections.find({
+  result: { $not: { $regex: /Unable to Locate/ } },
+}); // esto seria aquellos documentos que en resultado NO contengan la expresion regular Unable to Locate

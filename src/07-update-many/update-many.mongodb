@@ -1,0 +1,49 @@
+// UPDATE MANY
+
+// vamos a actualizar en la base de datos mongo atlas en zip
+// todos los documentos que cumplan con la siguiente condicion
+// que city: 'CLEVELAND'
+// y vamos a aumentarle la poblacion a todos en 1000
+
+use("sample_training");
+
+// cambiar todos los registros que tengan ciudad cleveland incrementando su poblacion en 1000
+db.zips.updateMany(
+  { city: "CLEVELAND" },
+  {
+    $inc: {
+      pop: 1000,
+    },
+  }
+);
+
+// $set agregando un nuevo campo o atributo en masa a todos los elementos
+db.zips.updateMany(
+  { city: "CLEVELAND" },
+  {
+    $set: {
+      miAtributo: "hola bebe que mas pues",
+    },
+  }
+);
+
+// $rename cambiando el nombre de un atributo como tal (no el valor)
+db.zips.updateMany(
+  { city: "CLEVELAND" },
+  {
+    $rename: {
+      miAtributo: "miNuevoAtributo",
+    },
+  }
+);
+
+// $unset eliminando un atributo
+
+db.zips.updateMany(
+  { city: "CLEVELAND" },
+  {
+    $unset: {
+      miNuevoAtributo: "",
+    },
+  }
+);

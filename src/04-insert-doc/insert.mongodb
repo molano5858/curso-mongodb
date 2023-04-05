@@ -1,0 +1,18 @@
+// creando una base de datos
+// usando use, si no esta creada una base de datos, la va a crear
+use("platzi_store");
+
+// creando una coleccion y un item
+// db.products si no esta creanda esta coleccion la crea
+// insertOne va a crear un item
+db.products.insertOne({
+  _id: 1,
+  name: "Product 1",
+  price: 1000,
+});
+
+db.products.insertOne({
+  _id: 2,
+  name: "Product 2",
+  price: 100,
+});

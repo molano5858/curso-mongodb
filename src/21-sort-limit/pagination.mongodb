@@ -1,0 +1,11 @@
+use("platzi_store");
+
+// PAGINATION
+// skip es el numero de elementos que me quiero saltar, es decir, imaginate que los datos estan en un array
+// si yo le digo skip 0 y limit 2 me va a mostrar desde la prosicion 0 (skip) dos registros (limit): seria
+// mostrar elemento 1 y elemento 2
+// si en la siquiente le pongo skip 2 y limit 2 me va a mostrar los elementos 3 y elemento 4
+// asi puedo hacer una PAGINACION DE DATOS
+
+db.categories.find().skip(0).limit(2); // me muestra los elementos con id 1 y 2
+db.categories.find().skip(2).limit(2); // me muestra los elementos con id 3 y 4
